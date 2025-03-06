@@ -103,7 +103,7 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
                   />
                   {isSending && (
                     <div 
-                      className="absolute inset-0 bg-[#F2FCE2] rounded-md pointer-events-none transition-all duration-300 ease-in-out opacity-70"
+                      className="absolute inset-0 bg-[#39FF14] rounded-md pointer-events-none transition-all duration-300 ease-in-out opacity-70"
                       style={{ width: `${sendProgress}%` }}
                     />
                   )}

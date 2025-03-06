@@ -15,6 +15,7 @@ interface ResultsProps {
 const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
   const [email, setEmail] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [sendProgress, setSendProgress] = useState(0);
   const { toast } = useToast();
   const { t } = useLanguage();
 
@@ -38,10 +39,15 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
     }
 
     setIsSending(true);
+    setSendProgress(0);
 
     try {
-      // Simulate sending email (in a real app, this would be an API call)
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Simulate sending email with progress updates
+      const totalSteps = 10;
+      for (let step = 1; step <= totalSteps; step++) {
+        await new Promise(resolve => setTimeout(resolve, 150));
+        setSendProgress(Math.floor((step / totalSteps) * 100));
+      }
       
       toast({
         title: t('success.email'),
@@ -57,6 +63,7 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
       });
     } finally {
       setIsSending(false);
+      setSendProgress(0);
     }
   };
 
@@ -85,14 +92,22 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
             <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
               <h3 className="text-lg font-medium mb-3">{t('results.emailTitle')}</h3>
               <div className="flex flex-col sm:flex-row gap-2">
-                <Input
-                  type="email"
-                  placeholder={t('results.emailPlaceholder')}
-                  value={email}
-                  onChange={handleEmailChange}
-                  className="flex-1"
-                  dir="ltr"
-                />
+                <div className="flex-1 relative">
+                  <Input
+                    type="email"
+                    placeholder={t('results.emailPlaceholder')}
+                    value={email}
+                    onChange={handleEmailChange}
+                    className="w-full"
+                    dir="ltr"
+                  />
+                  {isSending && (
+                    <div 
+                      className="absolute inset-0 bg-[#F2FCE2] rounded-md pointer-events-none transition-all duration-300 ease-in-out opacity-70"
+                      style={{ width: `${sendProgress}%` }}
+                    />
+                  )}
+                </div>
                 <Button 
                   onClick={handleSendEmail} 
                   disabled={isSending}

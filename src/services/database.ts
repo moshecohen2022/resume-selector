@@ -1,4 +1,3 @@
-
 // Mock database service
 export interface Candidate {
   id: string;
@@ -221,8 +220,7 @@ export interface ProfessionStats {
 }
 
 // מאגר נתונים לנתוני שוק עבודה
-export const getProfessionStats = (profession: string): P
-rofessionStats => {
+export const getProfessionStats = (profession: string): ProfessionStats => {
   // בהמשך נוכל להחליף זאת בנתונים אמיתיים מ-API
   const baseStats = {
     salary: 12000 + Math.floor(Math.random() * 18000),

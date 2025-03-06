@@ -1,8 +1,10 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Mail } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 
 interface ResultsProps {
   matchingProfessions: string[];
@@ -10,6 +12,52 @@ interface ResultsProps {
 }
 
 const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
+  const [email, setEmail] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const { toast } = useToast();
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handleSendEmail = async () => {
+    if (!validateEmail(email)) {
+      toast({
+        title: "שגיאה",
+        description: "כתובת האימייל אינה תקינה",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSending(true);
+
+    try {
+      // Simulate sending email (in a real app, this would be an API call)
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      toast({
+        title: "נשלח בהצלחה",
+        description: `התוצאות נשלחו לכתובת ${email}`,
+      });
+      
+      setEmail('');
+    } catch (error) {
+      toast({
+        title: "שגיאה",
+        description: "אירעה שגיאה בשליחת האימייל, אנא נסה שנית",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <Card className="w-full shadow-lg">
       <CardHeader className="bg-app-blue text-white rounded-t-lg">
@@ -30,6 +78,28 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
                   <span className="flex-1 font-medium">{profession}</span>
                 </div>
               ))}
+            </div>
+            
+            <div className="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <h3 className="text-lg font-medium mb-3">שלח את התוצאות לדואר אלקטרוני</h3>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Input
+                  type="email"
+                  placeholder="הכנס כתובת אימייל"
+                  value={email}
+                  onChange={handleEmailChange}
+                  className="flex-1"
+                  dir="ltr"
+                />
+                <Button 
+                  onClick={handleSendEmail} 
+                  disabled={isSending}
+                  className="bg-app-blue hover:bg-app-dark-blue gap-2"
+                >
+                  <Mail className="h-4 w-4" />
+                  {isSending ? "שולח..." : "שלח תוצאות"}
+                </Button>
+              </div>
             </div>
           </div>
         ) : (

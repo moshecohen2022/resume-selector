@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Mail, Info, BarChart } from 'lucide-react';
+import { ArrowLeft, Mail, Info, BarChart, Volume2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -28,7 +28,7 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
   const [sendProgress, setSendProgress] = useState(0);
   const [selectedProfession, setSelectedProfession] = useState<string | null>(null);
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { t, speak } = useLanguage();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -82,6 +82,12 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
     setSelectedProfession(profession);
   };
 
+  const speakProfessionInfo = (profession: string) => {
+    const stats = getProfessionStats(profession);
+    const textToSpeak = `${profession}. ${t('results.averageSalary')}: ${stats.salary} שקלים. ${t('results.marketDemand')}: ${stats.demand}%. ${t('results.jobSatisfaction')}: ${stats.satisfaction}%.`;
+    speak(textToSpeak);
+  };
+
   return (
     <Card className="w-full shadow-lg">
       <CardHeader className="bg-app-blue text-white rounded-t-lg">
@@ -97,7 +103,18 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
             {selectedProfession ? (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-xl font-bold">{selectedProfession}</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-xl font-bold">{selectedProfession}</h3>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="h-8 w-8 p-0"
+                      onClick={() => speakProfessionInfo(selectedProfession)}
+                      title={t('results.speakInfo')}
+                    >
+                      <Volume2 className="h-4 w-4" />
+                    </Button>
+                  </div>
                   <Button variant="outline" onClick={() => setSelectedProfession(null)}>
                     {t('results.backToList')}
                   </Button>
@@ -200,12 +217,32 @@ const Results: React.FC<ResultsProps> = ({ matchingProfessions, onGoBack }) => {
                     onClick={() => showProfessionStats(profession)}
                   >
                     <span className="flex-1 font-medium">{profession}</span>
-                    <Button variant="ghost" size="sm" className="ml-2" onClick={(e) => {
-                      e.stopPropagation();
-                      showProfessionStats(profession);
-                    }}>
-                      <Info className="h-4 w-4" />
-                    </Button>
+                    <div className="flex items-center gap-1">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-8 w-8 p-0"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          speakProfessionInfo(profession);
+                        }}
+                        title={t('results.speakInfo')}
+                      >
+                        <Volume2 className="h-4 w-4" />
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-8 w-8 p-0" 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          showProfessionStats(profession);
+                        }}
+                        title={t('results.viewDetails')}
+                      >
+                        <Info className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>

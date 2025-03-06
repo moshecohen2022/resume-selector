@@ -1,4 +1,3 @@
-
 export type Language = 'he' | 'en' | 'ar' | 'ru';
 
 type TranslationKeys = {
@@ -21,6 +20,7 @@ export const translations: TranslationsType = {
     'form.submitButton': 'הצג מקצועות מתאימים',
     'form.chooseFile': 'בחר קובץ',
     'form.removeFile': 'הסר קובץ',
+    'form.speak': 'קרא בקול',
     
     // Results
     'results.title': 'המקצועות המתאימים לך',
@@ -32,6 +32,27 @@ export const translations: TranslationsType = {
     'results.emailPlaceholder': 'הכנס כתובת אימייל',
     'results.sendButton': 'שלח תוצאות',
     'results.sending': 'שולח...',
+    'results.backToList': 'חזרה לרשימה',
+    'results.statistics': 'נתונים סטטיסטיים',
+    'results.information': 'מידע',
+    'results.averageSalary': 'שכר ממוצע',
+    'results.marketDemand': 'ביקוש בשוק',
+    'results.jobSatisfaction': 'שביעות רצון',
+    'results.growthRate': 'קצב צמיחה',
+    'results.yearly': 'שנתי',
+    'results.requiredEducation': 'השכלה נדרשת',
+    'results.description': 'תיאור',
+    'results.professionDescription': 'תיאור מפורט עבור המקצוע {profession}',
+    'results.keySkills': 'כישורים עיקריים',
+    'results.skill1': 'כישור 1',
+    'results.skill2': 'כישור 2',
+    'results.skill3': 'כישור 3',
+    'results.skill4': 'כישור 4',
+    'results.skill5': 'כישור 5',
+    'results.careerPath': 'מסלול התפתחות',
+    'results.careerPathDescription': 'תיאור מסלול התפתחות אפשרי עבור מקצוע זה',
+    'results.speakInfo': 'השמע מידע',
+    'results.viewDetails': 'צפה בפרטים',
     
     // Errors and Messages
     'error.email': 'כתובת האימייל אינה תקינה',
@@ -57,6 +78,7 @@ export const translations: TranslationsType = {
 
     // App title
     'app.title': 'מערכת התאמת מקצועות',
+    'app.speak': 'השמע',
     
     // Misc
     'upto': 'עד',
@@ -74,6 +96,7 @@ export const translations: TranslationsType = {
     'form.submitButton': 'Show Matching Professions',
     'form.chooseFile': 'Choose File',
     'form.removeFile': 'Remove File',
+    'form.speak': 'Speak',
     
     // Results
     'results.title': 'Professions that Match You',
@@ -85,6 +108,27 @@ export const translations: TranslationsType = {
     'results.emailPlaceholder': 'Enter email address',
     'results.sendButton': 'Send Results',
     'results.sending': 'Sending...',
+    'results.backToList': 'Back to List',
+    'results.statistics': 'Statistics',
+    'results.information': 'Information',
+    'results.averageSalary': 'Average Salary',
+    'results.marketDemand': 'Market Demand',
+    'results.jobSatisfaction': 'Job Satisfaction',
+    'results.growthRate': 'Growth Rate',
+    'results.yearly': 'yearly',
+    'results.requiredEducation': 'Required Education',
+    'results.description': 'Description',
+    'results.professionDescription': 'Detailed description for the profession {profession}',
+    'results.keySkills': 'Key Skills',
+    'results.skill1': 'Skill 1',
+    'results.skill2': 'Skill 2',
+    'results.skill3': 'Skill 3',
+    'results.skill4': 'Skill 4',
+    'results.skill5': 'Skill 5',
+    'results.careerPath': 'Career Path',
+    'results.careerPathDescription': 'Possible career development path for this profession',
+    'results.speakInfo': 'Speak Information',
+    'results.viewDetails': 'View Details',
     
     // Errors and Messages
     'error.email': 'Invalid email address',
@@ -110,6 +154,7 @@ export const translations: TranslationsType = {
 
     // App title
     'app.title': 'Profession Matching System',
+    'app.speak': 'Speak',
     
     // Misc
     'upto': 'up to',
@@ -127,6 +172,7 @@ export const translations: TranslationsType = {
     'form.submitButton': 'عرض المهن المتطابقة',
     'form.chooseFile': 'اختر ملف',
     'form.removeFile': 'إزالة الملف',
+    'form.speak': 'قراءة',
     
     // Results
     'results.title': 'المهن التي تناسبك',
@@ -138,6 +184,27 @@ export const translations: TranslationsType = {
     'results.emailPlaceholder': 'أدخل عنوان البريد الإلكتروني',
     'results.sendButton': 'إرسال النتائج',
     'results.sending': 'جاري الإرسال...',
+    'results.backToList': 'العودة إلى القائمة',
+    'results.statistics': 'إحصائيات',
+    'results.information': 'معلومات',
+    'results.averageSalary': 'متوسط الراتب',
+    'results.marketDemand': 'الطلب في السوق',
+    'results.jobSatisfaction': 'الرضا الوظيفي',
+    'results.growthRate': 'معدل النمو',
+    'results.yearly': 'سنويا',
+    'results.requiredEducation': 'التعليم المطلوب',
+    'results.description': 'وصف',
+    'results.professionDescription': 'وصف مفصل للمهنة {profession}',
+    'results.keySkills': 'المهارات الرئيسية',
+    'results.skill1': 'المهارة 1',
+    'results.skill2': 'المهارة 2',
+    'results.skill3': 'المهارة 3',
+    'results.skill4': 'المهارة 4',
+    'results.skill5': 'المهارة 5',
+    'results.careerPath': 'مسار التطور',
+    'results.careerPathDescription': 'مسار تطوير وظيفي محتمل لهذه المهنة',
+    'results.speakInfo': 'قراءة المعلومات',
+    'results.viewDetails': 'عرض التفاصيل',
     
     // Errors and Messages
     'error.email': 'عنوان البريد الإلكتروني غير صالح',
@@ -163,6 +230,7 @@ export const translations: TranslationsType = {
 
     // App title
     'app.title': 'نظام مطابقة المهن',
+    'app.speak': 'قراءة',
     
     // Misc
     'upto': 'حتى',
@@ -172,7 +240,7 @@ export const translations: TranslationsType = {
   ru: {
     // Form
     'form.title': 'Анкета кандидата',
-    'form.description': 'Заполните следующие данные, чтобы получить рекомендации по подходящим профессиям',
+    'form.description': 'Заполните сле��ующие данные, чтобы получить рекомендации по подходящим профессиям',
     'form.resumeUpload': 'Резюме',
     'form.traits': 'Выберите до 5 черт характера, которые вас характеризуют',
     'form.professions': 'Выберите до 5 профессий, которые вас интересуют',
@@ -180,6 +248,7 @@ export const translations: TranslationsType = {
     'form.submitButton': 'Показать подходящие профессии',
     'form.chooseFile': 'Выбрать файл',
     'form.removeFile': 'Удалить файл',
+    'form.speak': 'Озвучить',
     
     // Results
     'results.title': 'Профессии, которые вам подходят',
@@ -191,6 +260,27 @@ export const translations: TranslationsType = {
     'results.emailPlaceholder': 'Введите адрес электронной почты',
     'results.sendButton': 'Отправить результаты',
     'results.sending': 'Отправка...',
+    'results.backToList': 'Вернуться к списку',
+    'results.statistics': 'Статистика',
+    'results.information': 'Информация',
+    'results.averageSalary': 'Средняя зарплата',
+    'results.marketDemand': 'Спрос на рынке',
+    'results.jobSatisfaction': 'Удовлетворенность работой',
+    'results.growthRate': 'Темп роста',
+    'results.yearly': 'в год',
+    'results.requiredEducation': 'Необходимое образование',
+    'results.description': 'Описание',
+    'results.professionDescription': 'Подробное описание профессии {profession}',
+    'results.keySkills': 'Ключевые навыки',
+    'results.skill1': 'Навык 1',
+    'results.skill2': 'Навык 2',
+    'results.skill3': 'Навык 3',
+    'results.skill4': 'Навык 4',
+    'results.skill5': 'Навык 5',
+    'results.careerPath': 'Карьерный путь',
+    'results.careerPathDescription': 'Возможный путь карьерного развития для этой профессии',
+    'results.speakInfo': 'Озвучить информацию',
+    'results.viewDetails': 'Посмотреть детали',
     
     // Errors and Messages
     'error.email': 'Неверный адрес электронной почты',
@@ -216,6 +306,7 @@ export const translations: TranslationsType = {
 
     // App title
     'app.title': 'Система подбора профессий',
+    'app.speak': 'Озвучить',
     
     // Misc
     'upto': 'до',

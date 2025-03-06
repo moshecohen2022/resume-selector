@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { File } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ResumeUploadProps {
   onFileUpload: (file: File | null) => void;
@@ -11,6 +12,7 @@ interface ResumeUploadProps {
 const ResumeUpload: React.FC<ResumeUploadProps> = ({ onFileUpload }) => {
   const [fileName, setFileName] = useState<string | null>(null);
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -26,13 +28,13 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({ onFileUpload }) => {
         setFileName(file.name);
         onFileUpload(file);
         toast({
-          title: 'הקובץ הועלה בהצלחה',
+          title: t('success.fileUploaded'),
           description: `${file.name}`,
         });
       } else {
         toast({
-          title: 'סוג קובץ לא נתמך',
-          description: 'אנא העלה קובץ מסוג PDF, DOC או DOCX',
+          title: t('error.unsupportedFileType'),
+          description: t('error.uploadPdfDoc'),
           variant: 'destructive',
         });
       }
@@ -50,14 +52,14 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({ onFileUpload }) => {
         {!fileName ? (
           <>
             <File className="h-12 w-12 text-app-blue mb-4" />
-            <h3 className="text-lg font-medium mb-2">העלה את קורות החיים שלך</h3>
-            <p className="text-sm text-gray-500 mb-4">PDF, DOC, או DOCX</p>
+            <h3 className="text-lg font-medium mb-2">{t('form.resumeUpload')}</h3>
+            <p className="text-sm text-gray-500 mb-4">PDF, DOC, {t('or')} DOCX</p>
             <Button 
               variant="outline"
               className="relative"
               onClick={() => document.getElementById('resume-upload')?.click()}
             >
-              בחר קובץ
+              {t('form.chooseFile')}
               <input
                 id="resume-upload"
                 type="file"
@@ -79,7 +81,7 @@ const ResumeUpload: React.FC<ResumeUploadProps> = ({ onFileUpload }) => {
               onClick={handleRemoveFile}
               className="text-destructive hover:text-destructive"
             >
-              הסר קובץ
+              {t('form.removeFile')}
             </Button>
           </div>
         )}

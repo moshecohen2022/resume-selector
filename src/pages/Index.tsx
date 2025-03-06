@@ -9,6 +9,8 @@ import ResumeUpload from '@/components/ResumeUpload';
 import MultiSelect from '@/components/MultiSelect';
 import SelfDescription from '@/components/SelfDescription';
 import Results from '@/components/Results';
+import LanguageSelector from '@/components/LanguageSelector';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   saveCandidateData, 
   getMatchingProfessions, 
@@ -25,6 +27,7 @@ const Index = () => {
   const [matchingProfessions, setMatchingProfessions] = useState<string[]>([]);
   
   const { toast } = useToast();
+  const { t } = useLanguage();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,8 +35,8 @@ const Index = () => {
     // Validate form
     if (!resumeFile) {
       toast({
-        title: "שגיאה",
-        description: "יש להעלות קורות חיים",
+        title: t('error.noResume'),
+        description: t('error.noResume'),
         variant: "destructive",
       });
       return;
@@ -41,8 +44,8 @@ const Index = () => {
     
     if (selectedTraits.length === 0) {
       toast({
-        title: "שגיאה",
-        description: "יש לבחור לפחות תכונה אחת",
+        title: t('error.noTraits'),
+        description: t('error.noTraits'),
         variant: "destructive",
       });
       return;
@@ -50,8 +53,8 @@ const Index = () => {
     
     if (selectedProfessions.length === 0) {
       toast({
-        title: "שגיאה",
-        description: "יש לבחור לפחות מקצוע אחד",
+        title: t('error.noProfessions'),
+        description: t('error.noProfessions'),
         variant: "destructive",
       });
       return;
@@ -59,8 +62,8 @@ const Index = () => {
     
     if (description.trim().length < 20) {
       toast({
-        title: "שגיאה",
-        description: "יש להוסיף תיאור עצמי של לפחות 20 תווים",
+        title: t('error.shortDescription'),
+        description: t('error.shortDescription'),
         variant: "destructive",
       });
       return;
@@ -80,8 +83,8 @@ const Index = () => {
     
     // Show success message
     toast({
-      title: "הטופס נשלח בהצלחה",
-      description: "המידע נשמר בהצלחה",
+      title: t('success.formSubmitted'),
+      description: t('success.dataSaved'),
     });
     
     // Navigate to results
@@ -95,43 +98,46 @@ const Index = () => {
   return (
     <div className="min-h-screen py-8 bg-gray-50">
       <div className="container max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-8 text-app-blue">מערכת התאמת מקצועות</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-center text-app-blue">{t('app.title')}</h1>
+          <LanguageSelector />
+        </div>
         
         <Tabs value={currentTab} onValueChange={setCurrentTab} className="w-full">
           <TabsContent value="form" className="mt-0">
             <Card className="border shadow-lg">
               <CardHeader className="bg-app-blue text-white rounded-t-lg">
-                <CardTitle className="text-xl md:text-2xl">טופס פרטי מועמד</CardTitle>
+                <CardTitle className="text-xl md:text-2xl">{t('form.title')}</CardTitle>
                 <CardDescription className="text-white/80">
-                  מלא את הפרטים הבאים כדי לקבל המלצות למקצועות מתאימים
+                  {t('form.description')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-8">
                   <div className="space-y-4">
-                    <Label htmlFor="resume-upload">קורות חיים</Label>
+                    <Label htmlFor="resume-upload">{t('form.resumeUpload')}</Label>
                     <ResumeUpload onFileUpload={setResumeFile} />
                   </div>
                   
                   <div className="space-y-4">
-                    <Label htmlFor="traits">בחר עד 5 תכונות אופי שמאפיינות אותך</Label>
+                    <Label htmlFor="traits">{t('form.traits')}</Label>
                     <MultiSelect
                       options={traitsList}
                       selectedOptions={selectedTraits}
                       onChange={setSelectedTraits}
                       maxSelections={5}
-                      placeholder="בחר תכונות..."
+                      placeholder={t('form.traits')}
                     />
                   </div>
                   
                   <div className="space-y-4">
-                    <Label htmlFor="professions">בחר עד 5 מקצועות שמעניינים אותך</Label>
+                    <Label htmlFor="professions">{t('form.professions')}</Label>
                     <MultiSelect
                       options={professionsList}
                       selectedOptions={selectedProfessions}
                       onChange={setSelectedProfessions}
                       maxSelections={5}
-                      placeholder="בחר מקצועות..."
+                      placeholder={t('form.professions')}
                     />
                   </div>
                   
@@ -148,7 +154,7 @@ const Index = () => {
                       type="submit" 
                       className="w-full bg-app-blue hover:bg-app-dark-blue text-lg py-6"
                     >
-                      הצג מקצועות מתאימים
+                      {t('form.submitButton')}
                     </Button>
                   </div>
                 </form>
